@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 """Rewrite news articles as 5 cynical bullet points using Claude."""
 
+import os
+import sys
+
 import anthropic
 import httpx
+from dotenv import load_dotenv
 from readability import Document
 from bs4 import BeautifulSoup
+
+load_dotenv()
 
 SYSTEM_PROMPT = """You are a cynical news analyst. When given a news article, rewrite it as exactly 5 bullet points.
 
@@ -18,6 +24,14 @@ For each bullet point, reveal the likely real motivations of the subjects involv
 - Legacy
 
 Be concise, sharp, and darkly honest. Name the motivation explicitly in each bullet."""
+
+if not os.environ.get("ANTHROPIC_API_KEY"):
+    sys.exit(
+        "ANTHROPIC_API_KEY is not set.\n"
+        "Add it to a .env file in this directory (see .env.example):\n"
+        "    ANTHROPIC_API_KEY=sk-ant-...\n"
+        "or export it in your shell before running."
+    )
 
 client = anthropic.Anthropic()
 
