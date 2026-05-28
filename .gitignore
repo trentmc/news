@@ -1,3 +1,9 @@
 .venv
 venv/
 .env
+__pycache__/
+
+# evolve.py generated artifacts
+evolved_prompt.txt
+evolution_log.json
+corpus.json
